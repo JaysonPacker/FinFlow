@@ -1,6 +1,5 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-} // Load // Load environment variables from .env file
+require("dotenv").config();
+// Load // Load environment variables from .env file
 const path = require("path");
 const express = require("express");
 const compression = require("compression");

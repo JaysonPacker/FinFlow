@@ -9,13 +9,15 @@ const handleDomo = (e, onDomoAdded) => {
 
   const name = e.target.querySelector("#domoName").value;
   const age = e.target.querySelector("#domoAge").value;
+  const color = e.target.querySelector("#domoColor").value;
+  const isPublic = e.target.querySelector("#domoPublic").checked;
 
-  if (!name || !age) {
+  if (!name || !age || !color) {
     helper.handleError("All fields are required!");
     return false;
   }
 
-  helper.sendPost(e.target.action, { name, age }, onDomoAdded);
+  helper.sendPost(e.target.action, { name, age, color, isPublic }, onDomoAdded);
   return false;
 };
 
@@ -31,8 +33,12 @@ const DomoForm = (props) => {
     >
       <label htmlFor="name">Name: </label>
       <input id="domoName" type="text" name="name" placeholder="Domo Name" />
+      <label htmlFor="color">Color: </label>
+      <input id="domoColor" type="text" name="color" placeholder="Domo Color" />
       <label htmlFor="age">Age: </label>
       <input id="domoAge" type="number" min="0" name="age" />
+      <label htmlFor="idPublic"> isPublic: </label>
+      <input id="domoPublic" type="checkbox" name="isPublic" value="false" />
       <input className="makeDomoSubmit" type="submit" value="Make Domo" />
     </form>
   );
@@ -59,6 +65,7 @@ const DomoList = (props) => {
   }
 
   const domoNodes = domos.map((domo) => {
+    console.log(domo);
     return (
       <div key={domo.id} className="domo">
         <img
@@ -67,7 +74,9 @@ const DomoList = (props) => {
           className="domoFace"
         />
         <h3 className="domoName">{domo.name}</h3>
+        <h3 className="domoColor">{domo.color}</h3>
         <h3 className="domoAge">{domo.age}</h3>
+        <h3 className="domoPublic">{domo.isPublic ? "Public" : "Private"}</h3>
       </div>
     );
   });

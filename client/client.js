@@ -103,13 +103,15 @@ const init = () => {
 
       const name = domoForm.querySelector("#domoName").value;
       const age = domoForm.querySelector("#domoAge").value;
+      const color = domoForm.querySelector("#domoColor").value;
+      const isPublic = domoForm.querySelector("#domoPublic").checked;
 
-      if (!name || !age) {
+      if (!name || !age || !color) {
         handleError("All fields are required!");
         return false;
       }
 
-      sendPost(domoForm.getAttribute("action"), { name, age });
+      sendPost(domoForm.getAttribute("action"), { name, color, age, isPublic });
       return false;
     });
   }

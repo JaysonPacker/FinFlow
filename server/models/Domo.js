@@ -10,9 +10,19 @@ const DomoSchema = new mongoose.Schema({
     trim: true,
     set: setName,
   },
+  color: {
+    type: String,
+    required: true,
+    trim: true,
+    set: setName,
+  },
   age: {
     type: Number,
     min: 0,
+    required: true,
+  },
+  isPublic: {
+    type: Boolean,
     required: true,
   },
   owner: {
@@ -30,7 +40,6 @@ DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
 });
-
 
 const DomoModel = mongoose.model('Domo', DomoSchema);
 module.exports = DomoModel;
