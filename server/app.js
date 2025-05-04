@@ -54,7 +54,7 @@ redisClient.connect().then(() => {
 
   __dirname = path.resolve();
   if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "./client/dist")));
+    app.use(express.static(path.join(__dirname, "/client/dist")));
     app.get("*", (req, res) => {
       res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
     });
@@ -64,7 +64,6 @@ redisClient.connect().then(() => {
     if (err) {
       throw err;
     }
-    console.log(process.env.SECRET);
     console.log(`Server is listening on port ${port}`);
   });
 });
