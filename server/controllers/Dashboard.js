@@ -3,6 +3,7 @@ const Expense = require("../models/Expense");
 const { isValidObjectId, Types } = require("mongoose");
 
 const getDashboardData = async (req, res) => {
+  // this function if largley borrowed from a tutorial and modified to fit my needs
   try {
     const owner = req.session.account._id;
     const totalIncome = await Income.aggregate([
