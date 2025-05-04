@@ -59,10 +59,51 @@ const signup = async (req, res) => {
     return res.status(500).json({ error: "An error occurred" });
   }
 };
+const updatePassword = async (req, res) => {
+  const { oldPass, newPass, newPass2 } = req.body;
+
+  if (!oldPass || !newPass || !newPass2) {
+    return res.status(400).json({ error: "All fields are required!" });
+  }
+
+  if (newPass !== newPass2) {
+    return res.status(400).json({ error: "New passwords do not match!" });
+  }
+
+  try {
+    const account = await Account.findOne({
+      _id: req.session.account._id,
+    }).exec();
+    if (!account) {
+      return res.status(404).json({ error: "Account not found!" });
+    }
+
+    const isMatch = await Account.authenticate(
+      account.username,
+      oldPass,
+      () => {}
+    );
+    if (!isMatch) {
+      return res.status(401).json({ error: "Incorrect current password!" });
+    }
+
+    const newHash = await Account.generateHash(newPass);
+    account.password = newHash;
+    await account.save();
+
+    return res.json({ message: "Password updated successfully!" });
+  } catch (err) {
+    console.error("Password update error:", err);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while updating the password." });
+  }
+};
 
 module.exports = {
   logout,
   login,
   signup,
   verifyLogin,
+  updatePassword,
 };

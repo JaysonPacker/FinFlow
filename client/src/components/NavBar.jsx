@@ -7,6 +7,7 @@ const NavBar = ({ activeMenu }) => {
     { name: "DashBoard", path: "/home" },
     { name: "Income", path: "/income" },
     { name: "Expenses", path: "/expenses" },
+    { name: "Update Password", path: "/updatePassword" },
   ];
 
   const handleLogout = () => {
