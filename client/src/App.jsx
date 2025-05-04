@@ -11,6 +11,7 @@ import Income from "./pages/Income";
 import Expenses from "./pages/Expenses";
 import Signup from "./pages/Signup";
 import NotFoundPage from "./pages/NotFoundPage";
+import UpdatePassword from "./pages/UpdatePassword";
 import { Toaster } from "@/components/ui/toaster";
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/income" element={<Income />} />
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/updatePassword" element={<UpdatePassword />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
