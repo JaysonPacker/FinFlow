@@ -7,6 +7,7 @@ import helper from "../utils/helper.js";
 
 const Home = () => {
   helper.verifyLogin();
+
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(false);
 

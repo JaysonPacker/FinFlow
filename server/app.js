@@ -52,6 +52,14 @@ redisClient.connect().then(() => {
 
   app.use("/api", router);
 
+  __dirname = path.resolve();
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "./client/dist")));
+    app.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+    });
+  }
+
   app.listen(port, (err) => {
     if (err) {
       throw err;
