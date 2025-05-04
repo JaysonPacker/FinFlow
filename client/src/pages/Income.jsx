@@ -24,6 +24,8 @@ const handleIncome = (e) => {
   return false;
 };
 const Income = () => {
+  helper.verifyLogin();
+
   return (
     <>
       <HStack>

@@ -24,6 +24,8 @@ const handleUpdate = (e) => {
   return false;
 };
 const UpdatePassword = () => {
+  helper.verifyLogin();
+
   return (
     <>
       <HStack>
