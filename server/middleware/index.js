@@ -1,6 +1,6 @@
 const requiresLogin = (req, res, next) => {
   if (!req.session.account) {
-    return res.redirect("/");
+    return res.json({ redirect: "/login" });
   }
 
   return next();
@@ -8,7 +8,7 @@ const requiresLogin = (req, res, next) => {
 
 const requiresLogout = (req, res, next) => {
   if (req.session.account) {
-    return res.redirect("/maker");
+    return res.json({ redirect: "/home" });
   }
 
   return next();
@@ -25,11 +25,8 @@ const bypassSecure = (req, res, next) => {
   next();
 };
 
-module.exports = {
-  requiresLogin,
-  requiresLogout,
-};
-
+module.exports.requiresLogin = requiresLogin;
+module.exports.requiresLogout = requiresLogout;
 if (process.env.NODE_ENV === "production") {
   module.exports.requiresSecure = requiresSecure;
 } else {

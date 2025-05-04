@@ -1,45 +1,44 @@
-const controllers = require('./controllers');
-const mid = require('./middleware');
+const controllers = require("./controllers");
+const mid = require("./middleware");
+const express = require("express");
+const router = express.Router();
+router.get("/getIncome", mid.requiresLogin, controllers.Income.getIncomes);
+router.post("/addIncome", mid.requiresLogin, controllers.Income.addIncome);
+router.delete(
+  "/deleteIncome",
+  mid.requiresLogin,
+  controllers.Income.deleteIncome
+);
+router.get("/getExpense", mid.requiresLogin, controllers.Expense.getExpenses);
+router.post("/addExpense", mid.requiresLogin, controllers.Expense.addExpense);
+router.delete(
+  "/deleteExpense",
+  mid.requiresLogin,
+  controllers.Expense.deleteExpense
+);
+router.get(
+  "/getDashboardData",
+  mid.requiresLogin,
+  controllers.Dashboard.getDashboardData
+);
 
-const router = (app) => {
-  app.get('/getDomos', mid.requiresLogin, controllers.Domo.getDomos);
-  app.get(
-    '/getPublicDomos',
-    mid.requiresLogin,
-    controllers.Domo.getPublicDomos,
-  );
-  app.get('/public', mid.requiresLogin, controllers.Domo.publicPage);
-  app.get(
-    '/login',
-    mid.requiresSecure,
-    mid.requiresLogout,
-    controllers.Account.loginPage,
-  );
-  app.post(
-    '/login',
-    mid.requiresSecure,
-    mid.requiresLogout,
-    controllers.Account.login,
-  );
+router.post(
+  "/login",
+  mid.requiresSecure,
+  mid.requiresLogout,
 
-  app.post(
-    '/signup',
-    mid.requiresSecure,
-    mid.requiresLogout,
-    controllers.Account.signup,
-  );
+  controllers.Account.login
+);
 
-  app.get('/logout', mid.requiresLogin, controllers.Account.logout);
+router.post(
+  "/signup",
+  mid.requiresSecure,
+  mid.requiresLogout,
 
-  app.get('/maker', mid.requiresLogin, controllers.Domo.makerPage);
-  app.post('/maker', mid.requiresLogin, controllers.Domo.makeDomo); // Handle Domo creation
+  controllers.Account.signup
+);
 
-  app.get(
-    '/',
-    mid.requiresSecure,
-    mid.requiresLogout,
-    controllers.Account.loginPage,
-  ); // Redirect to login page on startup
-};
+router.post("/logout", mid.requiresLogin, controllers.Account.logout);
+router.post("/verifyLogin", mid.requiresLogin, controllers.Account.verifyLogin);
 
 module.exports = router;

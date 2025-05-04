@@ -1,12 +1,12 @@
 {
-  "name": "domomaker",
+  "name": "finflow",
   "version": "1.0.0",
   "description": "A Simple Login Example using Node.js, Mongo and Redis",
   "main": "./server/app.js",
   "scripts": {
     "webpack": "webpack",
     "webpackWatch": "webpack watch",
-    "nodemon": "nodemon -e js,html,css --watch ./server --watch ./hosted ./server/app.js",
+    "nodemon": "nodemon ./server/app.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
     "test": "echo \"Tests complete\"",
@@ -18,7 +18,7 @@
     "Redis",
     "Login"
   ],
-  "author": "Cody Van De Mark / Austin Willoughby",
+  "author": "Jayson Packer",
   "license": "Apache 2.0",
   "devDependencies": {
     "@babel/core": "^7.26.10",
@@ -38,6 +38,7 @@
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "connect-redis": "^7.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^4.19.2",
     "express-handlebars": "^7.1.2",
