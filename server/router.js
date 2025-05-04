@@ -38,6 +38,12 @@ router.post(
   controllers.Account.signup
 );
 
+router.post(
+  "/updatePassword",
+  mid.requiresLogin,
+  controllers.Account.updatePassword
+);
+
 router.post("/logout", mid.requiresLogin, controllers.Account.logout);
 router.post("/verifyLogin", mid.requiresLogin, controllers.Account.verifyLogin);
 

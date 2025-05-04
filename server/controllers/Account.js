@@ -71,26 +71,21 @@ const updatePassword = async (req, res) => {
   }
 
   try {
-    const account = await Account.findOne({
+    account = await Account.findOne({
       _id: req.session.account._id,
     }).exec();
     if (!account) {
       return res.status(404).json({ error: "Account not found!" });
     }
-
-    const isMatch = await Account.authenticate(
-      account.username,
-      oldPass,
-      () => {}
-    );
-    if (!isMatch) {
-      return res.status(401).json({ error: "Incorrect current password!" });
-    }
+    Account.authenticate(account.username, oldPass, (err, account) => {
+      if (err || !account) {
+        console.log("Authentication failed:");
+        return res.status(401).json({ error: "Old password Invalid" });
+      }
+    });
 
     const newHash = await Account.generateHash(newPass);
-    account.password = newHash;
-    await account.save();
-
+    await Account.findOneAndUpdate({ _id: account._id }, { password: newHash });
     return res.json({ message: "Password updated successfully!" });
   } catch (err) {
     console.error("Password update error:", err);
